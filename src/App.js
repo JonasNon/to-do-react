@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
+import TodoCard from './TodoCard'
 import './App.css';
-import props from 'prop-types';
+
 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       isClicked: false,
       inputValue: "",
       stringList: [],
-      editMode: false
+      editMode: false,
+      selectedItem: "placeholder"
     }
   }
   
@@ -37,15 +39,26 @@ class App extends Component {
 
   editItems = () => {
     this.state.editMode ? 
-    this.setState({editMode: true}) : 
+    this.setState({editMode: false}) : 
     this.setState({editMode: true})
   }
+
+  selectItem = (index, newTitle) => {
+
+    
+    this.state.selectedItem == index ? 
+    this.setState({stringList: [...this.state.stringList, this.state.newTitle]}) :
+    this.setState({selectedItem: index})
+  }
+
+
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          <p>{this.props.name}</p>
           <button onClick={this.handleClick}>TOGGLE ME</button>
           <p>
             {this.state.isClicked ? "true"  : "false"}
@@ -53,13 +66,12 @@ class App extends Component {
           <p>Make a list:</p>
           <form onSubmit={this.handleSubmit}>
             <input type='text' value={this.state.inputValue} onChange={this.handleChange}></input>
-            <button type='sumbit'>sumbit</button>
+            <button type='sumbit' onClick={this.handleSubmit}>sumbit</button>
           </form>
           <button onClick={() => this.editItems()}>Edit Items!</button>
           <ol>{this.state.stringList.map((string, index) => {
-            return <li key={index}>{this.state.editMode ? <input onSubmit={this.handleSubmit} placeholder={string}></input> : string}
-              <button onClick={() => this.deleteItem(index)}>Delete Me!</button>
-            </li>
+            return <TodoCard key={index} title={string} index={index} clickToRemove={this.deleteItem} clickToEdit={this.selectItem} selectedItem={this.state.selectedItem}/>
+            
           })}</ol>
 
 
