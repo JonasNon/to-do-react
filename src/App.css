@@ -41,3 +41,34 @@
 p {
   margin: 0;
 }
+
+.color-selection {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: -5vw;
+  top: 1.5vh;
+}
+
+#green {
+  background-color: #2dc937;
+  left: -8vw
+}
+
+#yellow {
+  background-color: #e7b416;
+  left: -5vw
+}
+
+#red {
+  background-color: #cc3232;
+  left: -2vw
+}
+
+form {
+  position: relative;
+}
+
+.selected {
+  outline: 3px solid rgb(255, 255, 255);
+}
